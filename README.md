@@ -11,6 +11,9 @@ git push origin <branch name>
 
 tambre testing a commit
 tambre testing creating a new branch. requested a pull.
+how to pull:
+1.) git fetch
+2.) git pull
 
 DANNY TEST A COMMIT
 
