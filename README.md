@@ -5,10 +5,12 @@ git remote add origin https://github.com/Code4Good-UWMadison/bloodpressuregame.g
 
 How to add something
 
-git 
-=======
+git add <file name or '.' for adding all> 
+git commit -m "message"
+git push origin <branch name>
+
 tambre testing a commit
 tambre testing creating a new branch. requested a pull.
-=======
+
 DANNY TEST A COMMIT
 
