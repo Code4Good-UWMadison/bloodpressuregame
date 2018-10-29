@@ -14,6 +14,7 @@ import {
   View,
 } from 'react-native';
 import GameScreen from './screens/GameScreen';
+import CheckScreen from './screens/CheckScreen';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 class HomeScreen extends React.Component {
@@ -41,6 +42,7 @@ const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Game: GameScreen,
+    Check: CheckScreen,
   },
   {
     initialRouteName: 'Home',
@@ -59,6 +61,6 @@ const styles = StyleSheet.create({
   centerView:{
     flex: 1, 
     alignItems: 'center', 
-    justifyContent: 'center' 
+    justifyContent: 'center',
   },
 });

@@ -9,30 +9,26 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 import CheckScreen from './CheckScreen';
 
-export default class GameScreen extends React.Component {
-	render() {
-    return <RootStack />;
-  }
-}
+/*TODO: You may want to add some functions as the backend logic parts here, such as randomnizer*/
 
-class Game extends React.Component{
+export default class GameScreen extends React.Component {
   static navigationOptions = {
     title: 'Game',
   };
-
   render() {
   	return (
-  		<View>
-  			<View style={styles.centerView}>
+  		<View style={styles.container}>
+  			<View style ={styles.body}>
+  				{/* TODO: Add cards here*/}
   	  			<Text>Hello World</Text>
+  				}
   	  		</View>
-  	  		<View style={styles.bottomView}>
+  	  		<View style={styles.bottonView}>
   	  			<Button
           			title="Check"
-          			onPress={() => this.props.navigation.navigate('CheckScreen')}
+          			onPress={() => this.props.navigation.navigate('Check')}
         		/>
   	  		</View>
   	  	</View>
@@ -40,26 +36,25 @@ class Game extends React.Component{
   }
 }
 
-
-const RootStack = createStackNavigator(
-  {
-    Game: Game,
-    Check: CheckScreen,
-  },
-  {
-    initialRouteName: 'Game',
-  }
-);
-
 // TODO: add a stylesheet containing "css" elements to style the page
 // Check out this css tutorial https://www.w3schools.com/css/
 const styles = StyleSheet.create({
-  centerView:{
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center',
+  container: {
+    flex: 1,
+    backgroundColor: '#E1FFFF',
+  },
+  body: {
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 20,
   },
   bottonView: {
-  	justifyContent: 'flex-end',
+  	width: 100,
+    height: 80,
+  	flex: 1,
+  	position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#AFEEEE',
   },
 });
