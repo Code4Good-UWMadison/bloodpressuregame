@@ -23,7 +23,6 @@ export default class GameScreen extends React.Component {
   			<View style ={styles.body}>
   				{/* TODO: Add cards here*/}
   	  			<Text>Hello World</Text>
-  				}
   	  		</View>
   	  		<View style={styles.bottonView}>
   	  			<Button

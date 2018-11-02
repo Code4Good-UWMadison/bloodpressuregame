@@ -23,12 +23,11 @@ class HomeScreen extends React.Component {
       // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       // The following line does the same thing as the above one, but it uses the stylesheet.
       <View style={styles.centerView}>
-    {/* TODO: Using <Image> to add logo
+        {/* TODO: Using <Image> to add logo
               Using <Text> to add plain text
               You can find a sample homescreen inside "screens" folder */}
         <Text>Home Screen</Text>
-      
-      {/* Learn more about navigation: https://reactnavigation.org/docs/en/navigating.html */}
+        {/* Learn more about navigation: https://reactnavigation.org/docs/en/navigating.html */}
         <Button
           title="Start"
           onPress={() => this.props.navigation.navigate('Game')}
