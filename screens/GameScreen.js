@@ -41,6 +41,10 @@ export default class GameScreen extends React.Component {
   			<View style ={styles.body}>
                 {scenarios[numQ].content}
   				{/* TODO: Add cards here*/}
+<<<<<<< HEAD
+=======
+  	  			<Text>Hello World</Text>
+>>>>>>> 23678b9eb93f1c3cdcd5b00c4ec2d6a3ef4633ed
   	  		</View>
   	  		<View style={styles.bottonView}>
   	  			<Button
