@@ -21,7 +21,18 @@ class Scenario {
     this.id = id;
     this.content = content;
     this.correctAnswer = correctAnswer;
-    this.flag = true;
+    this.flag = false;
+  }
+}
+
+class Cards{
+  id:String;
+  content:String;
+  choose:boolean;
+  constructor(id, content){
+    this.id = id;
+    this.content = content;
+    this.choose = false;
   }
 }
 
@@ -46,7 +57,10 @@ export default class GameScreen extends React.Component {
   	  		<View style={styles.bottonView}>
   	  			<Button
           			title="Check"
-          			onPress={() => this.props.navigation.navigate('Check')}
+          			onPress={() => {this.props.navigation.navigate('Check',{
+                  para: "test",
+                });
+              }}
         		/>
   	  		</View>
   	  	</View>
