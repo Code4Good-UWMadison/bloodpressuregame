@@ -8,7 +8,6 @@ import {
   Text,
   TouchableOpacity,
   View, } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
 
 export default class CheckScreen extends React.Component {
   static navigationOptions = {

@@ -10,29 +10,35 @@ import {
   View,
 } from 'react-native';
 import CheckScreen from './CheckScreen';
+const scenarios = ["", "", ""];
 
 /*TODO: You may want to add some functions as the backend logic parts here, such as randomnizer*/
-class Scenario {
-  id:String;
-  content:String;
-  correctAnswer:Array;
-  flag:boolean;
-  constructor(id,content,correctAnswer){
-    this.id = id;
-    this.content = content;
-    this.correctAnswer = correctAnswer;
-    this.flag = false;
+// class Scenario {
+//   id:String;
+//   content:String;
+//   correctAnswer:Array;
+//   flag:boolean;
+//   constructor(id,content,correctAnswer){
+//     this.id = id;
+//     this.content = content;
+//     this.correctAnswer = correctAnswer;
+//     this.flag = false;
+//   }
+// }
+class Scenario{
+  id:integer;
+  randomcards(id){
+    
   }
 }
 
 class Cards{
-  id:String;
-  content:String;
+  id:integer;
+  selected:boolean;
   choose:boolean;
-  constructor(id, content){
+  correct:boolean;
+  constructor(id){
     this.id = id;
-    this.content = content;
-    this.choose = false;
   }
 }
 
@@ -40,17 +46,20 @@ export default class GameScreen extends React.Component {
   static navigationOptions = {
     title: 'Game',
   };
+  randomnizer(){
+
+  }
   render() {
     var i;
-    var scenarios = new Array();
-    for (i=0;i<16;i++){
-      scenarios.push(new Scenario(i,'TestQuestion#'+i,[2,3,4]));
-    }
-    var numQ = Math.round(Math.random()*scenarios.length);
+    // var scenarios = new Array();
+    // for (i=0;i<16;i++){
+    //   scenarios.push(new Scenario(i,'TestQuestion#'+i,[2,3,4]));
+    // }
+    // var numQ = Math.round(Math.random()*scenarios.length);
   	return (
   		<View style={styles.container}>
   			<View style ={styles.body}>
-                {scenarios[numQ].content}
+                {/*scenarios[numQ].content*/}
   				{/* TODO: Add cards here*/}
   	  			<Text>Hello World</Text>
   	  		</View>
