@@ -52,11 +52,8 @@ class HomeScreen extends React.Component {
 }
 
 const RootStack = createStackNavigator({
-    Home: HomeScreen,
     Game: GameScreen,
     Check: CheckScreen,
-}, {
-    initialRouteName: 'Home',
 });
 
 export default class App extends React.Component {
