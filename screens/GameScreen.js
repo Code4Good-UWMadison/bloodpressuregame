@@ -27,7 +27,18 @@ const scenarios = ["", "", ""];
 // }
 class Scenario{
   id:integer;
-  randomcards(id){
+  fixIt : integer;
+  bigPicNum : integer;
+  randomnNumberOfCards() {
+    bigPicNum = Math.floor(Math.random(2));
+    if (var == 0){
+      fixIt = Math.floor(Math.random(3) + 1);
+      break;
+    } else {
+      fixIt = Math.floor(Math.random(2) + 1);
+    }
+  }
+  randomcards(index){
     
   }
 }
@@ -46,7 +57,7 @@ export default class GameScreen extends React.Component {
   static navigationOptions = {
     title: 'Game',
   };
-
+  randomnizer(){
   fixIt : Integer;
   bigPicNum : Integer;
   randomnizer() {
@@ -69,7 +80,7 @@ export default class GameScreen extends React.Component {
   			<View style ={styles.body}>
                 {/*scenarios[numQ].content*/}
   				{/* TODO: Add cards here*/}
-  	  			<Text>{fixIe}</Text>
+  	  			<Text>{fixIt}</Text>
   	  		</View>
   	  		<View style={styles.bottonView}>
   	  			<Button
