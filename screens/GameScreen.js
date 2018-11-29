@@ -1,3 +1,4 @@
+import * as file from '../constants/file.js';
 import React from 'react';
 import {
   Image,
@@ -9,30 +10,70 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 import CheckScreen from './CheckScreen';
 
-export default class GameScreen extends React.Component {
-	render() {
-    return <RootStack />;
+const scenarios = file.scenarios;
+const errorMsg = file.ACTION_INVALID;
+const c1 = file.CONSTANT_NUMBER_1;
+
+/*TODO: You may want to add some functions as the backend logic parts here, such as randomnizer*/
+// class Scenario {
+//   id:String;
+//   content:String;
+//   correctAnswer:Array;
+//   flag:boolean;
+//   constructor(id,content,correctAnswer){
+//     this.id = id;
+//     this.content = content;
+//     this.correctAnswer = correctAnswer;
+//     this.flag = false;
+//   }
+// }
+class Scenario{
+  id:integer;
+  randomcards(id){
+
   }
 }
 
-class Game extends React.Component{
+class Cards{
+  id:integer;
+  selected:boolean;
+  choose:boolean;
+  correct:boolean;
+  constructor(id){
+    this.id = id;
+  }
+}
+
+export default class GameScreen extends React.Component {
   static navigationOptions = {
     title: 'Game',
   };
+  randomnizer(){
 
+  }
   render() {
+    var i;
+    // var scenarios = new Array();
+    // for (i=0;i<16;i++){
+    //   scenarios.push(new Scenario(i,'TestQuestion#'+i,[2,3,4]));
+    // }
+    // var numQ = Math.round(Math.random()*scenarios.length);
   	return (
-  		<View>
-  			<View style={styles.centerView}>
-  	  			<Text>Hello World</Text>
+  		<View style={styles.container}>
+  			<View style ={styles.body}>
+                {/*scenarios[numQ].content*/}
+  				{/* TODO: Add cards here*/}
+  	  			<Text>{errorMsg[0]} and {errorMsg[1]} and {errorMsg[2]}</Text>
   	  		</View>
-  	  		<View style={styles.bottomView}>
+  	  		<View style={styles.bottonView}>
   	  			<Button
           			title="Check"
-          			onPress={() => this.props.navigation.navigate('CheckScreen')}
+          			onPress={() => {this.props.navigation.navigate('Check',{
+                  para: "test",
+                });
+              }}
         		/>
   	  		</View>
   	  	</View>
@@ -40,26 +81,25 @@ class Game extends React.Component{
   }
 }
 
-
-const RootStack = createStackNavigator(
-  {
-    Game: Game,
-    Check: CheckScreen,
-  },
-  {
-    initialRouteName: 'Game',
-  }
-);
-
 // TODO: add a stylesheet containing "css" elements to style the page
 // Check out this css tutorial https://www.w3schools.com/css/
 const styles = StyleSheet.create({
-  centerView:{
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center',
+  container: {
+    flex: 1,
+    backgroundColor: '#E1FFFF',
+  },
+  body: {
+    alignItems: 'center',
+    marginTop: 10,
+    marginBottom: 20,
   },
   bottonView: {
-  	justifyContent: 'flex-end',
+  	width: 100,
+    height: 80,
+  	flex: 1,
+  	position: 'absolute',
+    bottom: 0,
+    right: 0,
+    backgroundColor: '#AFEEEE',
   },
 });
