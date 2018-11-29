@@ -58,7 +58,15 @@ export default class GameScreen extends React.Component {
     title: 'Game',
   };
   randomnizer(){
-
+  fixIt : Integer;
+  bigPicNum : Integer;
+  randomnizer() {
+	  bigPicNum = Math.floor(Math.random(2));
+	  if (bigPicNum == 0){
+		fixIt = Math.floor(Math.random(3) + 1);
+	  } else {
+		fixIt = Math.floor(Math.random(2) + 1);
+	  }
   }
   render() {
     var i;
@@ -72,7 +80,7 @@ export default class GameScreen extends React.Component {
   			<View style ={styles.body}>
                 {/*scenarios[numQ].content*/}
   				{/* TODO: Add cards here*/}
-  	  			<Text>Hello World</Text>
+  	  			<Text>{fixIt}</Text>
   	  		</View>
   	  		<View style={styles.bottonView}>
   	  			<Button
