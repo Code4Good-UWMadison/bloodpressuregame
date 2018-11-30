@@ -27,7 +27,18 @@ const scenarios = ["", "", ""];
 // }
 class Scenario{
   id:integer;
-  randomcards(id){
+  fixIt : integer;
+  bigPicNum : integer;
+  randomnNumberOfCards() {
+    bigPicNum = Math.floor(Math.random(2));
+    if (var == 0){
+      fixIt = Math.floor(Math.random(3) + 1);
+      break;
+    } else {
+      fixIt = Math.floor(Math.random(2) + 1);
+    }
+  }
+  randomcards(index){
     
   }
 }
@@ -47,13 +58,13 @@ export default class GameScreen extends React.Component {
     title: 'Game',
   };
 
+  randomnizer(){
   fixIt : Integer;
   bigPicNum : Integer;
   randomnizer() {
 	  bigPicNum = Math.floor(Math.random(2));
-	  if (var == 0){
+	  if (bigPicNum == 0){
 		fixIt = Math.floor(Math.random(3) + 1);
-		break;
 	  } else {
 		fixIt = Math.floor(Math.random(2) + 1);
 	  }
