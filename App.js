@@ -52,6 +52,7 @@ class HomeScreen extends React.Component {
 }
 
 const RootStack = createStackNavigator({
+    Home: HomeScreen,
     Game: GameScreen,
     Check: CheckScreen,
 });

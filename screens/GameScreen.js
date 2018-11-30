@@ -10,7 +10,12 @@ import {
   View,
 } from 'react-native';
 import CheckScreen from './CheckScreen';
-const scenarios = ["", "", ""];
+import * as constants from '../constants/file.js';
+import Scenario from './Scene.js';
+import {random} from './helpers';
+const scenarios = constants.scenarios;
+const cardsText = constants.cards;
+const answers = constants.answers;//0 is fixit and 1 is big pic
 
 /*TODO: You may want to add some functions as the backend logic parts here, such as randomnizer*/
 // class Scenario {
@@ -25,73 +30,73 @@ const scenarios = ["", "", ""];
 //     this.flag = false;
 //   }
 // }
-class Scenario{
-  id:integer;
-  fixIt : integer;
-  bigPicNum : integer;
-  randomnNumberOfCards() {
-    bigPicNum = Math.floor(Math.random(2));
-    if (var == 0){
-      fixIt = Math.floor(Math.random(3) + 1);
-      break;
-    } else {
-      fixIt = Math.floor(Math.random(2) + 1);
-    }
-  }
-  randomcards(index){
-    
-  }
-}
-
-class Cards{
-  id:integer;
-  selected:boolean;
-  choose:boolean;
-  correct:boolean;
-  constructor(id){
-    this.id = id;
-  }
-}
 
 export default class GameScreen extends React.Component {
+  selected: Array;
+  correct: Array;
   static navigationOptions = {
     title: 'Game',
   };
+  constructor(){
+    super();
+    this.selected = new Array();
+    this.correct = new Array();
+  }
   randomnizer(){
-  fixIt : Integer;
-  bigPicNum : Integer;
-  randomnizer() {
-	  bigPicNum = Math.floor(Math.random(2));
-	  if (bigPicNum == 0){
-		fixIt = Math.floor(Math.random(3) + 1);
-	  } else {
-		fixIt = Math.floor(Math.random(2) + 1);
-	  }
+    return random(16);
+  }
+  counting(index){
+    this.selected.push(index);
   }
   render() {
-    var i;
-    // var scenarios = new Array();
-    // for (i=0;i<16;i++){
-    //   scenarios.push(new Scenario(i,'TestQuestion#'+i,[2,3,4]));
-    // }
-    // var numQ = Math.round(Math.random()*scenarios.length);
+    var scenes = new Array(); //check if the scene has been gone through or not
+    var sceneNum = this.randomnizer();
+    while(scenes.includes(sceneNum)){
+      sceneNum = this.randomizer();
+    }
+    var curr = new Scenario(sceneNum);
+    scenes.push(sceneNum);
+    this.correct = curr.correct;
   	return (
   		<View style={styles.container}>
   			<View style ={styles.body}>
                 {/*scenarios[numQ].content*/}
   				{/* TODO: Add cards here*/}
-  	  			<Text>{fixIt}</Text>
+  	  		<View style = {styles.scene}>
+          <Text adjustsFontSizeToFit>{scenarios[sceneNum]}</Text>
+          <View style={styles.clockOut}>
+          <Image style={styles.clock} source = {require('../assets/images/Timer.jpg')} />
+          </View>
   	  		</View>
-  	  		<View style={styles.bottonView}>
-  	  			<Button
-          			title="Check"
-          			onPress={() => {this.props.navigation.navigate('Check',{
-                  para: "test",
-                });
-              }}
-        		/>
-  	  		</View>
-  	  	</View>
+          <View style={styles.boxes}>
+            <View style={styles.rows}>
+             <TouchableOpacity onPress={()=>this.counting(curr.cards[0].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[0].id]}</Text></View></TouchableOpacity>
+              <TouchableOpacity onPress={()=>this.counting(curr.cards[1].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[1].id]}</Text></View></TouchableOpacity>
+               <TouchableOpacity onPress={()=>this.counting(curr.cards[2].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[2].id]}</Text></View></TouchableOpacity>
+            </View>
+            <View style={styles.rows}>
+             <TouchableOpacity onPress={()=>this.counting(curr.cards[3].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[3].id]}</Text></View></TouchableOpacity>
+              <TouchableOpacity onPress={()=>this.counting(curr.cards[4].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[4].id]}</Text></View></TouchableOpacity>
+               <TouchableOpacity onPress={()=>this.counting(curr.cards[5].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[5].id]}</Text></View></TouchableOpacity>
+            </View>
+            <View style={styles.rows}>
+             <TouchableOpacity onPress={()=>this.counting(curr.cards[6].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[6].id]}</Text></View></TouchableOpacity>
+              <TouchableOpacity onPress={()=>this.counting(curr.cards[7].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[7].id]}</Text></View></TouchableOpacity>
+              <View style={styles.cards}>
+              <Button
+                  title="Check"
+                  onPress={() => {this.props.navigation.navigate('Check',{
+                    para: this.selected,
+                    scene: sceneNum,
+                    correct:this.correct,
+                  });
+                }}
+              />
+              </View>
+            </View>
+            </View>
+          </View>
+        </View>
     );
   }
 }
@@ -105,8 +110,6 @@ const styles = StyleSheet.create({
   },
   body: {
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
   },
   bottonView: {
   	width: 100,
@@ -116,5 +119,42 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     backgroundColor: '#AFEEEE',
+  },
+  scene:{
+    width:200,
+    height: 80,
+    position: 'absolute',
+    top: 20,
+    right: 100,
+    borderColor: '#d6d7da',
+    borderWidth:2,
+    borderRadius: 8,
+    flexDirection:"row",
+    alignItems:'center',
+    backgroundColor:'rgba(0, 150, 200, 0.5)',
+  },
+  cards:{
+    width: 80,
+    height: 100,
+    margin: 10,
+    borderColor: '#d6d7da',
+    borderWidth:2,
+    borderRadius: 8,
+    alignItems:'center',
+    backgroundColor: '#AFEEEE',
+  },
+  rows:{
+    flexDirection:"row",
+  },
+  boxes:{
+    top: 110,
+  },
+  clock:{
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+  },
+  clockOut:{
+    right: -25,
   },
 });
