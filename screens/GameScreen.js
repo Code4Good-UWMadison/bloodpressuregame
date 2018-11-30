@@ -57,6 +57,7 @@ export default class GameScreen extends React.Component {
   static navigationOptions = {
     title: 'Game',
   };
+
   randomnizer(){
   fixIt : Integer;
   bigPicNum : Integer;
@@ -80,7 +81,7 @@ export default class GameScreen extends React.Component {
   			<View style ={styles.body}>
                 {/*scenarios[numQ].content*/}
   				{/* TODO: Add cards here*/}
-  	  			<Text>{fixIt}</Text>
+  	  			<Text>{fixIe}</Text>
   	  		</View>
   	  		<View style={styles.bottonView}>
   	  			<Button
