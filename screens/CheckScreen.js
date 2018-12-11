@@ -19,6 +19,7 @@ const explanation = constants.explanation;
 export default class CheckScreen extends React.Component {
   missing:Array;
   correct:Array;
+  corresEx: Array;
   static navigationOptions = {
     title: 'CheckForAnswers',
   };  
@@ -32,12 +33,13 @@ export default class CheckScreen extends React.Component {
     const param = navigation.getParam('para', 'TEST');
     const answer = navigation.getParam('correct', 'test');// pass in all correct answers
     const scene = navigation.getParam('scene', -1);
+    const corresEx = navigation.getParam('corresEx', 'test');
     var explains = explanation[scene].explain;//cards with explanation
-    for(var i; i < answer.length; i++){
-      if(param.indexOf(answer[i]) == -1){
-        this.missing.push(answer[i]);
+    for(var i = 0; i < answer.length; i++){
+      if(param.indexOf(answer[i]) != -1){
+        this.correct.push(corresEx[i]);
       } else{
-        this.correct.push(answer[i]);
+        this.missing.push(corresEx[i]);
       }
     }
     return (
@@ -46,50 +48,42 @@ export default class CheckScreen extends React.Component {
            * content, we just wanted to provide you with some helpful links */}
         {/*<ExpoLinksView/>*/}
         <View style = {styles.scene}>
-        <Text adjustsFontSizeToFit>{scenarios[JSON.stringify(scene)]}</Text>
+          <Text adjustsFontSizeToFit>{scenarios[JSON.stringify(scene)]}</Text>
         </View>
         <View style = {styles.cardscontainer}>
-        {
-          // this.missing.map(( item, key ) =>
-          // (
-          //   <View key = { key } style = { styles.missingCards }>
-          //       <Text>test</Text>
-          //   </View>
-          // ))
-        }
-        <ScrollView horizontal={false}>
-        <View style={styles.missingCards}>
-        <Text>
-        {explains[0]}
-        </Text>
-        </View>
-                <View style={styles.missingCards}>
-        <Text>
-        {explains[1]}
-        </Text>
-        </View>
-                <View style={styles.missingCards}>
-        <Text>
-        {explains[3]}
-        </Text>
-        </View>
-                <View style={styles.missingCards}>
-        <Text>
-        {explains[5]}
-        </Text>
-        </View>
-                <View style={styles.missingCards}>
-        <Text>
-        {explains[7]}
-        </Text>
-        </View>
-                <View style={styles.missingCards}>
-        <Text>
-        {explains[10]}
-        </Text>
-        </View>
-                
-        </ScrollView>
+          <Text>Missing</Text>
+          { 
+            this.missing.map((item) =>
+            (
+            <View style = { styles.missingCards }>
+                <Text>{explains[item]}</Text>
+            </View>
+            ))
+            // corresEx.map((item) =>
+            // (
+            // <View style = { styles.missingCards }>
+            //     <Text>{item}</Text>
+            // </View>
+            // ))
+          }
+
+          {
+            // param.map((item) =>
+            // (
+            // <View style = { styles.correctCards }>
+            //     <Text>{explains[item] + " "}</Text>
+            // </View>
+            // ))
+          }
+          <Text>Correct</Text>
+          { 
+            this.correct.map((item) =>
+            (
+            <View style = { styles.correctCards }>
+                <Text>{explains[item]}</Text>
+            </View>
+            ))
+          }
         </View>
       </ScrollView>
     );
@@ -104,6 +98,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   scene:{
+    flex: 1,
     width:300,
     height: 80,
     top: 5,
@@ -119,6 +114,7 @@ const styles = StyleSheet.create({
     alignItems:'center',
   },
   missingCards:{
+    flex: 1,
     width:300,
     height: 80,
     top: 5,
@@ -128,5 +124,17 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     alignItems:'center',
     backgroundColor:'rgba(128, 128, 128, 0.8)',
+  },
+  correctCards:{
+    flex: 1,
+    width:300,
+    height: 80,
+    top: 5,
+    borderColor: '#d6d7da',
+    borderWidth:2,
+    borderRadius: 8,
+    flexDirection:"row",
+    alignItems:'center',
+    backgroundColor:'rgba(0, 255, 5, 0.8)',
   },
 });

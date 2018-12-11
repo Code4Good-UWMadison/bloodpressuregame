@@ -34,6 +34,7 @@ const answers = constants.answers;//0 is fixit and 1 is big pic
 export default class GameScreen extends React.Component {
   selected: Array;
   correct: Array;
+  corresEx: Array;
   static navigationOptions = {
     title: 'Game',
   };
@@ -41,6 +42,7 @@ export default class GameScreen extends React.Component {
     super();
     this.selected = new Array();
     this.correct = new Array();
+    this.corresEx = new Array();
   }
   randomnizer(){
     return random(16);
@@ -57,6 +59,7 @@ export default class GameScreen extends React.Component {
     var curr = new Scenario(sceneNum);
     scenes.push(sceneNum);
     this.correct = curr.correct;
+    this.corresEx = curr.corresEx;
   	return (
   		<View style={styles.container}>
   			<View style ={styles.body}>
@@ -89,6 +92,7 @@ export default class GameScreen extends React.Component {
                     para: this.selected,
                     scene: sceneNum,
                     correct:this.correct,
+                    corresEx: this.corresEx,
                   });
                 }}
               />
