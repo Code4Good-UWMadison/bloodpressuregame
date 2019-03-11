@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { 
+import {
   Image,
   Platform,
   Button,
@@ -10,11 +10,12 @@ import {
   TouchableOpacity,
   FlatList,
   View, } from 'react-native';
+
 import * as constants from '../constants/file.js';
 const scenarios = constants.scenarios;
 const cardsText = constants.cards;
 const answers = constants.answers;//0 is fixit and 1 is big pic
-const explanation = constants.explanation; 
+const explanation = constants.explanation;
 
 export default class CheckScreen extends React.Component {
   missing:Array;
@@ -22,7 +23,7 @@ export default class CheckScreen extends React.Component {
   corresEx: Array;
   static navigationOptions = {
     title: 'CheckForAnswers',
-  };  
+  };
   constructor(){
     super();
     this.missing = new Array();
@@ -43,62 +44,48 @@ export default class CheckScreen extends React.Component {
       }
     }
     return (
-      <ScrollView style={styles.container}>
-        {/* TODO: Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        {/*<ExpoLinksView/>*/}
-        <View style = {styles.scene}>
-          <Text adjustsFontSizeToFit>{scenarios[JSON.stringify(scene)]}</Text>
-        </View>
-        <View style = {styles.cardscontainer}>
-          <Text>Missing</Text>
-          { 
-            this.missing.map((item) =>
-            (
-            <View style = { styles.missingCards }>
-                <Text>{explains[item]}</Text>
-            </View>
-            ))
-            // corresEx.map((item) =>
-            // (
-            // <View style = { styles.missingCards }>
-            //     <Text>{item}</Text>
-            // </View>
-            // ))
-          }
-
-          {
-            // param.map((item) =>
-            // (
-            // <View style = { styles.correctCards }>
-            //     <Text>{explains[item] + " "}</Text>
-            // </View>
-            // ))
-          }
-          <Text>Correct</Text>
-          { 
-            this.correct.map((item) =>
-            (
-            <View style = { styles.correctCards }>
-                <Text>{explains[item]}</Text>
-            </View>
-            ))
-          }
-        </View>
-      </ScrollView>
+      <View style = {{flex:1}}>
+        <ScrollView contentContainerStyle = {styles.container}>
+          <View style = {styles.scene}>
+            <Text buttonStyle={styles.button}>{scenarios[JSON.stringify(scene)]}</Text>
+          </View>
+          <View style = {styles.cardscontainer}>
+            <Text>Missing</Text>
+            {
+              this.missing.map((item) =>
+              (
+              <View style = { styles.missingCards }>
+                  <Text>{explains[item]}</Text>
+              </View>
+              ))
+            }
+            <Text>Correct</Text>
+            {
+              this.correct.map((item) =>
+              (
+              <View style = { styles.correctCards }>
+                  <Text>{explains[item]}</Text>
+              </View>
+              ))
+            }
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 15,
+    flexGrow: 1,
+    paddingTop: 30,
+    paddingVertical: 20,
     backgroundColor: '#fff',
     alignItems:'center',
+    height: 400,
   },
   scene:{
-    flex: 1,
+    //flex: 1,
     width:300,
     height: 80,
     top: 5,
@@ -124,6 +111,7 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     alignItems:'center',
     backgroundColor:'rgba(128, 128, 128, 0.8)',
+    margin:10,
   },
   correctCards:{
     flex: 1,
@@ -136,5 +124,6 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     alignItems:'center',
     backgroundColor:'rgba(0, 255, 5, 0.8)',
+    margin:10,
   },
 });
