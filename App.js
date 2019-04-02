@@ -1,4 +1,5 @@
 import React from 'react';
+
 // TODO: when adding new components, check out the list
 // of components in the end of this page under "REACT NATIVE":
 // https://docs.expo.io/versions/v30.0.0/react-native/tutorial
@@ -23,30 +24,57 @@ class HomeScreen extends React.Component {
         return (
             // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             // The following line does the same thing as the above one, but it uses the stylesheet.
-            <View style={styles.centerView}>
+            <View style={{flex:1}}>     
+       <View style={{flex:4,backgroundColor:'skyblue' }}>
+           
+
+          <Text style={styles.head}>Under</Text>
+          <Text style={styles.head2}>Pressure</Text>
+   
+
+<View style={{flex: 1,flexDirection:'row'}}>
+        <View style={styles.longBox}>
+        </View>
+        <View style={styles.longBox2}>
+        </View>
+        <View style={styles.longBox3}>
+        </View>
+
+    
+    <View style={styles.centerView}>
+    <View style={styles.innerBox}>   
        
-        <Text style={styles.head}>Under Pressure</Text>
-        <View style={styles.biggerbox}>
-         <View style={styles.box}>
-            <Button title="Start" color="white" 
+           <View style={styles.box}>
+           </View>
+         <View style={styles.box1}>
+            <Button title="Start" color="black"  
             onPress={() => this.props.navigation.navigate('Game')}
             />
          </View>
-
-
-         <View style={styles.box}>     
-            <Button title="Continue" color="white" />
-         </View>
+        <View style={styles.box2}>     
+            <Button title="Continue" color="black" />
          </View>
 
-        <Button
-          title="Survey"
+        <Text style={{fontSize: 70, color: 'steelblue', fontFamily:'Menlo-Bold',paddingLeft:10}}>GAME</Text> 
+        
+        <View style={styles.box2}>
+        <View style={{alignItems: 'flex-start', marginLeft:10}}>
+           <Button   
+          title="SURVEY" color="skyblue" fontFamily='Menlo-Bold'
           onPress={() => 
             Linking.openURL('https://goo.gl/forms/uyWpRmwba0qKqEUE2')
           }
-        />
+         />
+         </View>
+         </View>
+    </View>
+    </View>     
+</View>
+         </View>
 
-      </View>
+       
+
+   </View>
         );
     }
 }
@@ -67,27 +95,88 @@ export default class App extends React.Component {
 // Check out this css tutorial https://www.w3schools.com/css/
 const styles = StyleSheet.create({
         centerView: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
+            // alignItems: 'center',
+            // justifyContent: 'center',
+             backgroundColor:'white',
+             width:280,
+             height: 420,
+             marginLeft:10,
+             marginTop:50,
+
+        },
+
+        longBox:{
+            width:20,
+            marginTop:120,
+           height: 350,
+           marginLeft:60,
+           backgroundColor:'white',
+        },
+        
+        longBox2:{
+            width:20,
+            marginTop:90,
+           height: 380,
+           marginLeft:10,
+           backgroundColor:'white',
+        },
+
+        longBox3:{
+            width:20,
+            marginTop:50,
+           height: 420,
+           marginLeft:10,
+           backgroundColor:'white',
         },
 
         head: {
-            fontSize: 24,
+            marginTop: 30,
+            marginLeft: 20,
+            fontSize: 50,
+            color: 'white',
+            fontFamily:'Cochin-Bold',
+        },
+
+        head2: {
+            marginTop: 0,
+            marginLeft:40,
+            fontSize: 50,
+            color: 'white',
+            fontFamily:'Cochin-Bold',
+        },
+
+        innerBox:{
+            paddingTop:190,
 
         },
 
-        box: {
-            margin: 7.5,
+        box: {  
+            marginLeft:20,
+            marginTop:10,
+            width: 80,
+            height:10,
+            backgroundColor:'lightblue',   
+        },
+
+        box1: {  
+            marginLeft:20,
+            marginTop:10,
             width: 100,
-            backgroundColor: 'steelblue',
+            backgroundColor:'lightblue',
+          
         },
 
-        biggerbox: {
-            flexDirection: "row",
-        }
+         box2: {  
+            marginLeft:20,
+            marginTop:10,
+            width: 150,
+            backgroundColor:'skyblue',
 
+        },
+
+       
 
     }
 
 );
+
