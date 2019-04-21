@@ -1,10 +1,11 @@
 import React from 'react';
-
 // TODO: when adding new components, check out the list
 // of components in the end of this page under "REACT NATIVE":
 // https://docs.expo.io/versions/v30.0.0/react-native/tutorial
 // You will need to import the component before using it.
+
 import {
+    Animated,
     Image,
     Platform,
     Button,
@@ -25,12 +26,13 @@ class HomeScreen extends React.Component {
             // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             // The following line does the same thing as the above one, but it uses the stylesheet.
             <View style={{flex:1}}>     
-       <View style={{flex:4,backgroundColor:'skyblue' }}>
+       <View style={{flex:4,backgroundColor:'black' }}>
            
-
-          <Text style={styles.head}>Under</Text>
-          <Text style={styles.head2}>Pressure</Text>
-   
+       <FadeInView >
+          <Text style={styles.head}>UNDER</Text>
+          <Text style={styles.head2}>PRESSURE</Text>
+        
+    </FadeInView>
 
 <View style={{flex: 1,flexDirection:'row'}}>
         <View style={styles.longBox}>
@@ -47,25 +49,26 @@ class HomeScreen extends React.Component {
            <View style={styles.box}>
            </View>
          <View style={styles.box1}>
-            <Button title="Start" color="black"  
+            <Button title="START" color="white"  
             onPress={() => this.props.navigation.navigate('Game')}
             />
          </View>
         <View style={styles.box2}>     
-            <Button title="Continue" color="black" />
+            <Button title="CONTINUE" color="black" />
          </View>
 
-        <Text style={{fontSize: 70, color: 'steelblue', fontFamily:'Menlo-Bold',paddingLeft:10}}>GAME</Text> 
+        <View style={styles.box3}>
+        <Text style={{fontSize: 70, color: '#ffbd13', fontFamily:'Menlo-Bold'}}>GAME</Text> 
         
-        <View style={styles.box2}>
-        <View style={{alignItems: 'flex-start', marginLeft:10}}>
+        
+       
            <Button   
-          title="SURVEY" color="skyblue" fontFamily='Menlo-Bold'
+          title="SURVEY" color="white" fontFamily='Menlo-Bold'
           onPress={() => 
             Linking.openURL('https://goo.gl/forms/uyWpRmwba0qKqEUE2')
           }
          />
-         </View>
+         
          </View>
     </View>
     </View>     
@@ -124,7 +127,7 @@ const styles = StyleSheet.create({
         longBox3:{
             width:20,
             marginTop:50,
-           height: 420,
+           height: 550,
            marginLeft:10,
            backgroundColor:'white',
         },
@@ -155,22 +158,32 @@ const styles = StyleSheet.create({
             marginTop:10,
             width: 80,
             height:10,
-            backgroundColor:'lightblue',   
+            backgroundColor:'gray',   
         },
 
         box1: {  
             marginLeft:20,
             marginTop:10,
             width: 100,
-            backgroundColor:'lightblue',
+            backgroundColor:'black',
           
         },
 
-         box2: {  
+        box2: {  
+            alignItems: 'center',
             marginLeft:20,
             marginTop:10,
-            width: 150,
-            backgroundColor:'skyblue',
+            width: 200,
+            backgroundColor:'gray',
+
+        },
+
+         box3: {  
+            alignItems: 'center',
+            marginLeft:20,
+            marginTop:10,
+            width: 200,
+            backgroundColor:'black',
 
         },
 
@@ -180,3 +193,33 @@ const styles = StyleSheet.create({
 
 );
 
+class FadeInView extends React.Component {
+  state = {
+    fadeAnim: new Animated.Value(0),  // Initial value for opacity: 0
+  }
+
+  componentDidMount() {
+    Animated.timing(                  // Animate over time
+      this.state.fadeAnim,            // The animated value to drive
+      {
+        toValue: 1,                   // Animate to opacity: 1 (opaque)
+        duration: 1000,              // Make it take a while
+      }
+    ).start();                        // Starts the animation
+  }
+
+  render() {
+    let { fadeAnim } = this.state;
+
+    return (
+      <Animated.View                 // Special animatable View
+        style={{
+          ...this.props.style,
+          opacity: fadeAnim,         // Bind opacity to animated value
+        }}
+      >
+        {this.props.children}
+      </Animated.View>
+    );
+  }
+}
