@@ -8,11 +8,13 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
 import CheckScreen from './CheckScreen';
 import * as constants from '../constants/file.js';
 import Scenario from './Scene.js';
 import {random} from './helpers';
+import TimerCountdown from "react-native-timer-countdown";
 const scenarios = constants.scenarios;
 const cardsText = constants.cards;
 const answers = constants.answers;//0 is fixit and 1 is big pic
@@ -62,39 +64,65 @@ export default class GameScreen extends React.Component {
     this.corresEx = curr.corresEx;
   	return (
   		<View style={styles.container}>
+        <View style={styles.timer}>
+          <TimerCountdown
+            initialMilliseconds={1000 * 180}
+            onTick={(milliseconds) => console.log("tick", milliseconds)}
+            onExpire={() => Alert.alert(
+              'Time is up',
+              'Please submit your answer',
+              [
+                {text: 'Submit', onPress: () => {this.props.navigation.navigate('Check',{
+                  para: this.selected,
+                  scene: sceneNum,
+                  correct:this.correct,
+                  corresEx: this.corresEx,
+                });
+              }},
+              ],
+              { cancelable: false }
+            )}
+            formatMilliseconds={(milliseconds) => {
+              const remainingSec = Math.round(milliseconds / 1000);
+              const seconds = parseInt((remainingSec % 60).toString(), 10);
+              const minutes = parseInt(((remainingSec / 60) % 60).toString(), 10);
+              const hours = parseInt((remainingSec / 3600).toString(), 10);
+              const s = seconds < 10 ? '0' + seconds : seconds;
+              const m = minutes < 10 ? '0' + minutes : minutes;
+              let h = hours < 10 ? '0' + hours : hours;
+              h = h === '00' ? '' : h + ':';
+              return h + m + ':' + s;
+            }}
+            allowFontScaling={true}
+            style={{ fontSize: 20 }}
+            />
+        </View>
   			<View style ={styles.body}>
                 {/*scenarios[numQ].content*/}
   				{/* TODO: Add cards here*/}
-          <View style={{alignItems:'center',  position: 'absolute', marginTop:50}}> 
-            <Image style={{width: 30, height: 30}}
-          source={require('../assets/images/sign.png')}
-         />
-          <Text style={{color:'#ffbd13', fontFamily:'Menlo-Bold'}}>UNDER</Text>
-           <Text style={{color:'#ffbd13', fontFamily:'Menlo-Bold'}}>PRESSURE </Text>
-          </View>
   	  		<View style = {styles.scene}>
-          <Text style={{color:'white',   fontFamily:'Arial Rounded MT Bold', fontSize:20}} >{scenarios[sceneNum]}</Text>
+          <Text adjustsFontSizeToFit>{scenarios[sceneNum]}</Text>
           <View style={styles.clockOut}>
-          <Image style={styles.clock} source = {require('../assets/images/Timer.jpg')} />
+          <Image style={styles.clock} source = {require('../assets/images/Timer.jpg')} />  
           </View>
   	  		</View>
           <View style={styles.boxes}>
-            <View style={styles.col}>
-             <TouchableOpacity onPress={()=>this.counting(curr.cards[0].id)}><View style={styles.cards}><Text style={styles.text} adjustsFontSizeToFit>{cardsText[curr.cards[0].id]}</Text></View></TouchableOpacity>
-              <TouchableOpacity onPress={()=>this.counting(curr.cards[1].id)}><View style={styles.cards}><Text style={styles.text} adjustsFontSizeToFit>{cardsText[curr.cards[1].id]}</Text></View></TouchableOpacity>
-               <TouchableOpacity onPress={()=>this.counting(curr.cards[2].id)}><View style={styles.cards}><Text style={styles.text} adjustsFontSizeToFit>{cardsText[curr.cards[2].id]}</Text></View></TouchableOpacity>
+            <View style={styles.rows}>
+             <TouchableOpacity onPress={()=>this.counting(curr.cards[0].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[0].id]}</Text></View></TouchableOpacity>
+              <TouchableOpacity onPress={()=>this.counting(curr.cards[1].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[1].id]}</Text></View></TouchableOpacity>
+               <TouchableOpacity onPress={()=>this.counting(curr.cards[2].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[2].id]}</Text></View></TouchableOpacity>
             </View>
-            <View style={styles.col}>
-             <TouchableOpacity onPress={()=>this.counting(curr.cards[3].id)}><View style={styles.cards}><Text style={styles.text} adjustsFontSizeToFit>{cardsText[curr.cards[3].id]}</Text></View></TouchableOpacity>
-              <TouchableOpacity onPress={()=>this.counting(curr.cards[4].id)}><View style={styles.cards}><Text style={styles.text} adjustsFontSizeToFit>{cardsText[curr.cards[4].id]}</Text></View></TouchableOpacity>
-               <TouchableOpacity onPress={()=>this.counting(curr.cards[5].id)}><View style={styles.cards}><Text style={styles.text} adjustsFontSizeToFit>{cardsText[curr.cards[5].id]}</Text></View></TouchableOpacity>
+            <View style={styles.rows}>
+             <TouchableOpacity onPress={()=>this.counting(curr.cards[3].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[3].id]}</Text></View></TouchableOpacity>
+              <TouchableOpacity onPress={()=>this.counting(curr.cards[4].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[4].id]}</Text></View></TouchableOpacity>
+               <TouchableOpacity onPress={()=>this.counting(curr.cards[5].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[5].id]}</Text></View></TouchableOpacity>
             </View>
-            <View style={styles.col}>
-             <TouchableOpacity onPress={()=>this.counting(curr.cards[6].id)}><View style={styles.cards}><Text style={styles.text} adjustsFontSizeToFit>{cardsText[curr.cards[6].id]}</Text></View></TouchableOpacity>
-              <TouchableOpacity onPress={()=>this.counting(curr.cards[7].id)}><View style={styles.cards}><Text style={styles.text}  adjustsFontSizeToFit>{cardsText[curr.cards[7].id]}</Text></View></TouchableOpacity>
-              <View style={styles.checkCard}>
+            <View style={styles.rows}>
+             <TouchableOpacity onPress={()=>this.counting(curr.cards[6].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[6].id]}</Text></View></TouchableOpacity>
+              <TouchableOpacity onPress={()=>this.counting(curr.cards[7].id)}><View style={styles.cards}><Text adjustsFontSizeToFit>{cardsText[curr.cards[7].id]}</Text></View></TouchableOpacity>
+              <View style={styles.cards}>
               <Button
-                  title="CHECK" color="white"  
+                  title="Check"
                   onPress={() => {this.props.navigation.navigate('Check',{
                     para: this.selected,
                     scene: sceneNum,
@@ -109,15 +137,20 @@ export default class GameScreen extends React.Component {
           </View>
         </View>
     );
+    
   }
 }
 
 // TODO: add a stylesheet containing "css" elements to style the page
 // Check out this css tutorial https://www.w3schools.com/css/
 const styles = StyleSheet.create({
+  timer: {
+    alignItems:"center",
+    margin:10,
+  },
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#E1FFFF',
   },
   body: {
     alignItems: 'center',
@@ -132,46 +165,33 @@ const styles = StyleSheet.create({
     backgroundColor: '#AFEEEE',
   },
   scene:{
-    width:300,
+    width:200,
     height: 80,
     position: 'absolute',
-    top: 100,
-    right: 100,
+    top: 20,
+    //right: 100,
+    borderColor: '#d6d7da',
+    borderWidth:2,
     borderRadius: 8,
     flexDirection:"row",
     alignItems:'center',
-   
+    backgroundColor:'rgba(0, 150, 200, 0.5)',
   },
   cards:{
-    width: 300,
-    height: 40,
-    margin: 5,
+    width: 80,
+    height: 100,
+    margin: 10,
+    borderColor: '#d6d7da',
+    borderWidth:2,
     borderRadius: 8,
     alignItems:'center',
-    backgroundColor: 'white',
-    
+    backgroundColor: '#AFEEEE',
   },
-
-  checkCard:{
-    width: 300,
-    height: 40,
-    margin: 5,
-    alignItems:'center',
-  
-  },
-
-  text:{
-      fontFamily:'Cochin-Bold',
-
-    backgroundColor:'transparent',
-    color:'black',
-  },
-
-  col:{
-    flexDirection:"column",
+  rows:{
+    flexDirection:"row",
   },
   boxes:{
-    top: 200,
+    top: 110,
   },
   clock:{
     width: 80,
@@ -182,3 +202,72 @@ const styles = StyleSheet.create({
     right: -25,
   },
 });
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: 'white',
+//   },
+//   body: {
+//     alignItems: 'center',
+//   },
+//   bottonView: {
+//   	width: 100,
+//     height: 80,
+//   	flex: 1,
+//   	position: 'absolute',
+//     bottom: 0,
+//     right: 0,
+//     backgroundColor: '#AFEEEE',
+//   },
+//   scene:{
+//     width:300,
+//     height: 80,
+//     position: 'absolute',
+//     top: 100,
+//     right: 100,
+//     borderRadius: 8,
+//     flexDirection:"row",
+//     alignItems:'center',
+   
+//   },
+//   cards:{
+//     width: 300,
+//     height: 40,
+//     margin: 5,
+//     borderRadius: 8,
+//     alignItems:'center',
+//     backgroundColor: 'white',
+    
+//   },
+
+//   checkCard:{
+//     width: 300,
+//     height: 40,
+//     margin: 5,
+//     alignItems:'center',
+  
+//   },
+
+//   text:{
+//       fontFamily:'Cochin-Bold',
+
+//     backgroundColor:'transparent',
+//     color:'black',
+//   },
+
+//   col:{
+//     flexDirection:"column",
+//   },
+//   boxes:{
+//     top: 200,
+//   },
+//   clock:{
+//     width: 80,
+//     height: 80,
+//     borderRadius: 8,
+//   },
+//   clockOut:{
+//     right: -25,
+//   },
+// });
