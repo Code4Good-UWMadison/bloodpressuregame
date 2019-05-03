@@ -8,28 +8,17 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Alert,
+  CheckBox,
 } from 'react-native';
 import CheckScreen from './CheckScreen';
 import * as constants from '../constants/file.js';
 import Scenario from './Scene.js';
 import {random} from './helpers';
+import TimerCountdown from "react-native-timer-countdown";
 const scenarios = constants.scenarios;
 const cardsText = constants.cards;
 const answers = constants.answers;//0 is fixit and 1 is big pic
-
-/*TODO: You may want to add some functions as the backend logic parts here, such as randomnizer*/
-// class Scenario {
-//   id:String;
-//   content:String;
-//   correctAnswer:Array;
-//   flag:boolean;
-//   constructor(id,content,correctAnswer){
-//     this.id = id;
-//     this.content = content;
-//     this.correctAnswer = correctAnswer;
-//     this.flag = false;
-//   }
-// }
 
 export default class GameScreen extends React.Component {
   selected: Array;
@@ -62,13 +51,46 @@ export default class GameScreen extends React.Component {
     this.corresEx = curr.corresEx;
   	return (
   		<View style={styles.container}>
+        <View style={styles.timer}>
+          <TimerCountdown
+            initialMilliseconds={1000 * 180}
+            onTick={(milliseconds) => console.log("tick", milliseconds)}
+            onExpire={() => Alert.alert(
+              'Time is up',
+              'Please submit your answer',
+              [
+                {text: 'Submit', onPress: () => {this.props.navigation.navigate('Check',{
+                  para: this.selected,
+                  scene: sceneNum,
+                  correct:this.correct,
+                  corresEx: this.corresEx,
+                });
+              }},
+              ],
+              { cancelable: false }
+            )}
+            formatMilliseconds={(milliseconds) => {
+              const remainingSec = Math.round(milliseconds / 1000);
+              const seconds = parseInt((remainingSec % 60).toString(), 10);
+              const minutes = parseInt(((remainingSec / 60) % 60).toString(), 10);
+              const hours = parseInt((remainingSec / 3600).toString(), 10);
+              const s = seconds < 10 ? '0' + seconds : seconds;
+              const m = minutes < 10 ? '0' + minutes : minutes;
+              let h = hours < 10 ? '0' + hours : hours;
+              h = h === '00' ? '' : h + ':';
+              return h + m + ':' + s;
+            }}
+            allowFontScaling={true}
+            style={{ fontSize: 20 }}
+            />
+        </View>
   			<View style ={styles.body}>
                 {/*scenarios[numQ].content*/}
   				{/* TODO: Add cards here*/}
   	  		<View style = {styles.scene}>
           <Text adjustsFontSizeToFit>{scenarios[sceneNum]}</Text>
           <View style={styles.clockOut}>
-          <Image style={styles.clock} source = {require('../assets/images/Timer.jpg')} />
+          <Image style={styles.clock} source = {require('../assets/images/Timer.jpg')} />  
           </View>
   	  		</View>
           <View style={styles.boxes}>
@@ -102,12 +124,17 @@ export default class GameScreen extends React.Component {
           </View>
         </View>
     );
+    
   }
 }
 
 // TODO: add a stylesheet containing "css" elements to style the page
 // Check out this css tutorial https://www.w3schools.com/css/
 const styles = StyleSheet.create({
+  timer: {
+    alignItems:"center",
+    margin:10,
+  },
   container: {
     flex: 1,
     backgroundColor: '#E1FFFF',
@@ -129,7 +156,7 @@ const styles = StyleSheet.create({
     height: 80,
     position: 'absolute',
     top: 20,
-    right: 100,
+    //right: 100,
     borderColor: '#d6d7da',
     borderWidth:2,
     borderRadius: 8,
@@ -162,3 +189,72 @@ const styles = StyleSheet.create({
     right: -25,
   },
 });
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: 'white',
+//   },
+//   body: {
+//     alignItems: 'center',
+//   },
+//   bottonView: {
+//   	width: 100,
+//     height: 80,
+//   	flex: 1,
+//   	position: 'absolute',
+//     bottom: 0,
+//     right: 0,
+//     backgroundColor: '#AFEEEE',
+//   },
+//   scene:{
+//     width:300,
+//     height: 80,
+//     position: 'absolute',
+//     top: 100,
+//     right: 100,
+//     borderRadius: 8,
+//     flexDirection:"row",
+//     alignItems:'center',
+   
+//   },
+//   cards:{
+//     width: 300,
+//     height: 40,
+//     margin: 5,
+//     borderRadius: 8,
+//     alignItems:'center',
+//     backgroundColor: 'white',
+    
+//   },
+
+//   checkCard:{
+//     width: 300,
+//     height: 40,
+//     margin: 5,
+//     alignItems:'center',
+  
+//   },
+
+//   text:{
+//       fontFamily:'Cochin-Bold',
+
+//     backgroundColor:'transparent',
+//     color:'black',
+//   },
+
+//   col:{
+//     flexDirection:"column",
+//   },
+//   boxes:{
+//     top: 200,
+//   },
+//   clock:{
+//     width: 80,
+//     height: 80,
+//     borderRadius: 8,
+//   },
+//   clockOut:{
+//     right: -25,
+//   },
+// });
