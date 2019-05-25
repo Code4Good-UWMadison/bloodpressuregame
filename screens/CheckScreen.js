@@ -11,7 +11,7 @@ import {
   FlatList,
   View,
   NavigationBar,
-  RegisterForm,
+  RegisterForm
 } from 'react-native';
 
 import * as constants from '../constants/file.js';
