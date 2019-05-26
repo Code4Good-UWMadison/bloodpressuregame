@@ -18,6 +18,7 @@ import {
 import GameScreen from './screens/GameScreen';
 import CheckScreen from './screens/CheckScreen';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
+import { Font } from 'expo'
 
 class HomeScreen extends React.Component {
   state = {
@@ -66,9 +67,10 @@ class HomeScreen extends React.Component {
                     onPress={() => this.props.navigation.navigate('Game')}
                   />
                 </View>
-                <View style={styles.box2}>
-                  <Button title="Continue" color="black" />
-                </View>
+                {/* <View style={styles.box2}>
+                  <Button title="Continue" color="black" onPress={}
+                  />
+                </View> */}
 
                 {
                   this.state.fontLoaded ? (

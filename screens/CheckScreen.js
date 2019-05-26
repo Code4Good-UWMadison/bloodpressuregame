@@ -25,9 +25,16 @@ export default class CheckScreen extends React.Component {
   correct: Array;
   corresEx: Array;
   wrong: Array;
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: 'CheckForAnswers',
-  };
+    headerLeft : (
+      <TouchableOpacity onPress={() => {navigation.navigate('Home')}}>
+        <View style={{ justifyContent: 'center', headerLayoutPreset: 'center', marginLeft: 15, width: 40, height: 40 }}>
+                      <Image source={ require('../assets/images/home.png') }/>
+          </View>
+      </TouchableOpacity>
+    ),
+  });
   constructor() {
     super();
     this.missing = new Array();
@@ -40,19 +47,25 @@ export default class CheckScreen extends React.Component {
     const answer = navigation.getParam('correct', 'test');// pass in all correct answers
     const scene = navigation.getParam('scene', -1);
     const corresEx = navigation.getParam('corresEx', 'test');
+    var isCorrect = false;
+    var isMissing = false;
+    var isWrong = false;
     var explains = explanation[scene].explain;//cards with explanation
     
     for (var i = 0; i < answer.length; i++) {
       if (param.indexOf(answer[i]) != -1) {
         this.correct.push(corresEx[i]);
+        isCorrect = true;
       } else {
         this.missing.push(corresEx[i]);
+        isMissing = true;
       }
     }
 
     for (var j = 0; j < param.length; j++) {
       if (answer.indexOf(param[j]) == -1) {
         this.wrong.push(param[j]);
+        isWrong = true;
       }
     }
 
@@ -66,30 +79,54 @@ export default class CheckScreen extends React.Component {
             </View>
 
             <Text style={{textAlign:"center",overflow:"scroll"}}>Correct</Text>
-            <View>{this.correct.map((item) =>
+            <View>
+            {isCorrect ? (
+              this.correct.map((item) =>
               (
                 <View style={styles.correctCards}>
-                  <Text style={{padding:2,overflow:"scroll",margin:2,flexWrap:"wrap"}}>{explains[item]}</Text>
+                  <Text style={{padding:2,overflow:"scroll",margin:2,flexWrap:"wrap"}}>{cardsText[item]}</Text>
                 </View>
-              ))}
+              ))
+              ):(
+                <View>
+                  <Text style={{textAlign:"center",overflow:"scroll", fontWeight:'bold'}}> None </Text>
+                </View>
+              )
+            }
             </View>
 
             <Text style={{textAlign:"center",overflow:"scroll"}}>Wrong</Text>
-            <View>{this.wrong.map((item) =>
+            <View>    
+            {isWrong ? (
+              this.wrong.map((item) =>
               (
                 <View style={styles.wrongCards}>
-                  <Text style={{padding:2,overflow:"scroll",margin:2,flexWrap:"wrap"}}>{explanation[item]}</Text>
+                  <Text style={{padding:2,overflow:"scroll",margin:2,flexWrap:"wrap"}}>{cardsText[item]}</Text>
                 </View>
-              ))}
+              ))
+              ):(
+                <View>
+                  <Text style={{textAlign:"center",overflow:"scroll", fontWeight:'bold'}}> None </Text>
+                </View>
+              )
+            }
             </View>
             
             <Text style={{textAlign:"center",overflow:"scroll"}}>Missing</Text>
-            <View>{this.missing.map((item) =>
+            <View>
+            {isMissing ? (
+              this.missing.map((item) =>
               (
                 <View style={styles.missingCards}>
                   <Text style={{padding:2,overflow:"scroll",margin:2,flexWrap:"wrap"}}>{explains[item]}</Text>
                 </View>
-              ))}
+              ))
+              ):(
+                <View>
+                  <Text style={{textAlign:"center",overflow:"scroll", fontWeight:'bold'}}> None </Text>
+                </View>
+              )
+            }
             </View>
           </View>
         </ScrollView>
@@ -110,8 +147,9 @@ const styles = StyleSheet.create({
   },
   scene: {
     //flex: 1,
+    flexDirection:'column',
     width: 300,
-    height: 80,
+    minHeight: 80,
     top: 5,
     padding: 2,
     borderColor: '#d6d7da',
@@ -127,10 +165,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   missingCards: {
-    flex: 1,
+    flexDirection:'column',
     flexGrow:1,
     width: 300,
-    height: 200,
+    minHeight: 50,
     top: 5,
     borderColor: '#d6d7da',
     padding: 2,
@@ -141,10 +179,10 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   wrongCards: {
-    flex: 1,
+    flexDirection:'column',
     flexGrow:1,
     width: 300,
-    height: 200,
+    minHeight: 50,
     top: 5,
     borderColor: '#d6d7da',
     padding: 2,
@@ -155,9 +193,9 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   correctCards: {
-    flex: 1,
+    flexDirection:'column',
     width: 300,
-    height: 100,
+    minHeight: 50,
     top: 5,
     borderColor: '#d6d7da',
     padding: 2,
