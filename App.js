@@ -90,7 +90,7 @@ class HomeScreen extends React.Component {
                     {
                       this.state.fontLoaded ? (
                         <Button
-                          title="SURVEY" color="skyblue" fontFamily='Menlo-Bold'
+                          title="SURVEY" color="black" fontFamily='Menlo-Bold'
                           onPress={() =>
                             Linking.openURL('https://goo.gl/forms/uyWpRmwba0qKqEUE2')
                           }
