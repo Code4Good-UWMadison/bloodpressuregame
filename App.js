@@ -19,6 +19,7 @@ import GameScreen from './screens/GameScreen';
 import CheckScreen from './screens/CheckScreen';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 import { Font } from 'expo'
+import { setSpText2, scaleSize } from './screens/ScreenUtil';
 
 class HomeScreen extends React.Component {
   state = {
@@ -35,15 +36,21 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <View style={{ flex: 4, backgroundColor: 'skyblue' }}>
+        <View style={{ flex: 1, backgroundColor: 'skyblue' }}>
           {
             this.state.fontLoaded ? (
-              <Text style={styles.head}>UNDER</Text>
+              <Text style={{ marginTop: scaleSize(30), marginLeft: scaleSize(20), color: 'white', fontFamily: 'Cochin-Bold', fontSize: setSpText2(50) }}>UNDER</Text>
             ) : null
           }
           {
             this.state.fontLoaded ? (
-              <Text style={styles.head2}>PRESSURE</Text>
+              <Text style={{
+                marginTop: 0,
+                marginLeft: scaleSize(40),
+                color: 'white',
+                fontFamily: 'Cochin-Bold',
+                fontSize: setSpText2(50),
+              }}>PRESSURE</Text>
             ) : null
           }
 
@@ -73,13 +80,13 @@ class HomeScreen extends React.Component {
                 </View> */}
 
                 {
-                  this.state.fontLoaded ? (
-                    <Text style={{ fontSize: 70, color: 'steelblue', fontFamily: 'Menlo-Bold', paddingLeft: 10 }}>GAME</Text>
-                  ) : null
+                  // this.state.fontLoaded ? (
+                  //   <Text style={{ fontSize: setSpText2(70), color: 'steelblue', fontFamily: 'Menlo-Bold', paddingLeft: 10 }}>GAME</Text>
+                  // ) : null
                 }
 
                 <View style={styles.box2}>
-                  <View style={{ alignItems: 'flex-start', marginLeft: 10 }}>
+                  {/* <View style={{ alignItems: 'flex-start', marginLeft: scaleSize(10) }}> */}
                     {
                       this.state.fontLoaded ? (
                         <Button
@@ -89,15 +96,12 @@ class HomeScreen extends React.Component {
                           }
                         />) : null
                     }
-                  </View>
+                  {/* </View> */}
                 </View>
               </View>
             </View>
           </View>
         </View>
-
-
-
       </View>
     );
   }
@@ -128,80 +132,63 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // justifyContent: 'center',
     backgroundColor: 'white',
-    width: 280,
-    height: 420,
-    marginLeft: 10,
-    marginTop: 50,
+    width: scaleSize(280),
+    height: scaleSize(420),
+    marginLeft: scaleSize(10),
+    marginTop: scaleSize(50),
 
   },
 
   longBox: {
-    width: 20,
-    marginTop: 120,
-    height: 350,
-    marginLeft: 60,
+    width: scaleSize(20),
+    marginTop: scaleSize(120),
+    height: scaleSize(350),
+    marginLeft: scaleSize(60),
     backgroundColor: 'white',
   },
 
   longBox2: {
-    width: 20,
-    marginTop: 90,
-    height: 380,
-    marginLeft: 10,
+    width: scaleSize(20),
+    marginTop: scaleSize(90),
+    height: scaleSize(380),
+    marginLeft: scaleSize(10),
     backgroundColor: 'white',
   },
 
   longBox3: {
-    width: 20,
-    marginTop: 50,
-    height: 420,
-    marginLeft: 10,
+    width: scaleSize(20),
+    marginTop: scaleSize(50),
+    height: scaleSize(420),
+    marginLeft: scaleSize(10),
     backgroundColor: 'white',
   },
 
-  head: {
-    marginTop: 30,
-    marginLeft: 20,
-    fontSize: 50,
-    color: 'white',
-    fontFamily: 'Cochin-Bold',
-  },
-
-  head2: {
-    marginTop: 0,
-    marginLeft: 40,
-    fontSize: 50,
-    color: 'white',
-    fontFamily: 'Cochin-Bold',
-  },
-
   innerBox: {
-    paddingTop: 190,
+    paddingTop: scaleSize(190),
 
   },
 
   box: {
-    marginLeft: 20,
-    marginTop: 10,
-    width: 80,
-    height: 10,
+    marginLeft: scaleSize(55),
+    marginTop: scaleSize(10),
+    width: scaleSize(120),
+    height: scaleSize(10),
     backgroundColor: 'lightblue',
   },
 
   box1: {
-    marginLeft: 20,
-    marginTop: 10,
-    width: 100,
+    marginLeft: scaleSize(40),
+    marginTop: scaleSize(15),
+    width: scaleSize(150),
     backgroundColor: 'lightblue',
 
   },
 
   box2: {
-    marginLeft: 20,
-    marginTop: 10,
-    width: 150,
+    marginLeft: scaleSize(45),
+    marginTop: scaleSize(15),
+    width: scaleSize(140),
     backgroundColor: 'skyblue',
-
   },
 
 
