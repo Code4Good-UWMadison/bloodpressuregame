@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 import * as constants from '../constants/file.js';
+import { setSpText2, scaleSize } from './ScreenUtil';
 const scenarios = constants.scenarios;
 const cardsText = constants.cards;
 const answers = constants.answers;//0 is fixit and 1 is big pic
@@ -29,7 +30,7 @@ export default class CheckScreen extends React.Component {
     title: 'CheckForAnswers',
     headerLeft : (
       <TouchableOpacity onPress={() => {navigation.navigate('Home')}}>
-        <View style={{ justifyContent: 'center', headerLayoutPreset: 'center', marginLeft: 15, width: 40, height: 40 }}>
+        <View style={{ justifyContent: 'center', headerLayoutPreset: 'center', marginLeft: scaleSize(15), width: scaleSize(40), height: scaleSize(40) }}>
                       <Image source={ require('../assets/images/home.png') }/>
           </View>
       </TouchableOpacity>
@@ -148,61 +149,61 @@ const styles = StyleSheet.create({
   scene: {
     //flex: 1,
     flexDirection:'column',
-    width: 300,
-    minHeight: 80,
-    top: 5,
-    padding: 2,
+    width: scaleSize(300),
+    minHeight: scaleSize(80),
+    top: scaleSize(5),
+    padding: scaleSize(2),
     borderColor: '#d6d7da',
-    borderWidth: 2,
-    borderRadius: 8,
+    borderWidth: scaleSize(2),
+    borderRadius: scaleSize(8),
     flexDirection: "row",
     alignItems: 'center',
     backgroundColor: 'rgba(0, 150, 200, 0.5)',
-    margin: 10,
+    margin: scaleSize(10),
   },
   cardscontainer: {
-    top: 25,
+    top: scaleSize(25),
     alignItems: 'center',
   },
   missingCards: {
     flexDirection:'column',
     flexGrow:1,
-    width: 300,
-    minHeight: 50,
-    top: 5,
+    width: scaleSize(300),
+    minHeight: scaleSize(50),
+    top: scaleSize(5),
     borderColor: '#d6d7da',
-    padding: 2,
-    borderWidth: 2,
-    borderRadius: 8,
+    padding: scaleSize(2),
+    borderWidth: scaleSize(2),
+    borderRadius: scaleSize(8),
     alignItems: 'center',
     backgroundColor: 'rgba(128, 128, 128, 0.8)',
-    margin: 10,
+    margin: scaleSize(10),
   },
   wrongCards: {
     flexDirection:'column',
     flexGrow:1,
-    width: 300,
-    minHeight: 50,
-    top: 5,
+    width: scaleSize(300),
+    minHeight: scaleSize(50),
+    top: scaleSize(5),
     borderColor: '#d6d7da',
-    padding: 2,
-    borderWidth: 2,
-    borderRadius: 8,
+    padding: scaleSize(2),
+    borderWidth: scaleSize(2),
+    borderRadius: scaleSize(8),
     alignItems: 'center',
     backgroundColor: 'rgba(128, 0, 0, 0.8)',
-    margin: 10,
+    margin: scaleSize(10),
   },
   correctCards: {
     flexDirection:'column',
-    width: 300,
-    minHeight: 50,
-    top: 5,
+    width: scaleSize(300),
+    minHeight: scaleSize(50),
+    top: scaleSize(5),
     borderColor: '#d6d7da',
-    padding: 2,
-    borderWidth: 2,
-    borderRadius: 8,
+    padding: scaleSize(2),
+    borderWidth: scaleSize(2),
+    borderRadius: scaleSize(8),
     alignItems: 'center',
     backgroundColor: 'rgba(0, 255, 5, 0.8)',
-    margin: 10,
+    margin: scaleSize(10),
   },
 });

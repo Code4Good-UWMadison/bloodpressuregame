@@ -185,9 +185,9 @@ const styles = StyleSheet.create({
   },
 
   box2: {
-    marginLeft: scaleSize(45),
-    marginTop: scaleSize(15),
-    width: scaleSize(140),
+    marginLeft: scaleSize(40),
+    marginTop: scaleSize(10),
+    width: scaleSize(150),
     backgroundColor: 'skyblue',
   },
 

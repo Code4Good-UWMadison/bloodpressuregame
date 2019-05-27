@@ -17,6 +17,7 @@ import Scenario from './Scene.js';
 import { random } from './helpers';
 // import TimerCountdown from "react-native-timer-countdown";
 import CountDown from 'react-native-countdown-component';
+import { setSpText2, scaleSize } from './ScreenUtil';
 
 const scenarios = constants.scenarios;
 const cardsText = constants.cards;
@@ -171,8 +172,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bottonView: {
-    width: 100,
-    height: 80,
+    width: scaleSize(100),
+    height: scaleSize(80),
     flex: 1,
     position: 'absolute',
     bottom: 0,
@@ -180,25 +181,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#AFEEEE',
   },
   scene: {
-    width: 200,
-    height: 80,
+    width: scaleSize(200),
+    height: scaleSize(80),
     position: 'absolute',
-    top: 20,
+    top: scaleSize(20),
     //right: 100,
     borderColor: '#d6d7da',
-    borderWidth: 2,
-    borderRadius: 8,
+    borderWidth: scaleSize(2),
+    borderRadius: scaleSize(8),
     flexDirection: "row",
     alignItems: 'center',
     backgroundColor: 'rgba(0, 150, 200, 0.5)',
   },
   cards: {
-    width: 80,
-    height: 100,
-    margin: 10,
+    width: scaleSize(80),
+    height: scaleSize(100),
+    margin: scaleSize(10),
     borderColor: '#d6d7da',
-    borderWidth: 2,
-    borderRadius: 8,
+    borderWidth: scaleSize(2),
+    borderRadius: scaleSize(8),
     alignItems: 'center',
     backgroundColor: '#AFEEEE',
   },
@@ -206,15 +207,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   boxes: {
-    top: 110,
+    top: scaleSize(110),
   },
   clock: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
+    width: scaleSize(80),
+    height: scaleSize(80),
+    borderRadius: scaleSize(8),
   },
   clockOut: {
-    right: -25,
+    right: scaleSize(-25),
   },
 });
 
