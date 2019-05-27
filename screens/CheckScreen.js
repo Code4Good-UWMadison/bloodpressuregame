@@ -54,7 +54,7 @@ export default class CheckScreen extends React.Component {
     
     for (var i = 0; i < answer.length; i++) {
       if (param.indexOf(answer[i]) != -1) {
-        this.correct.push(corresEx[i]);
+        this.correct.push(param[i]);
         isCorrect = true;
       } else {
         this.missing.push(corresEx[i]);
